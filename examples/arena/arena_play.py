@@ -46,7 +46,7 @@ class MyAgent(Agent):
 
 
 def main():
-    # Set the global logging level (Set to debug or info to see more messages)
+    # Set the global logging levl (Set to debug or info to see more messages)
     logging.basicConfig(level=logging.WARNING)
 
     # setup the arena
