@@ -16,7 +16,7 @@ from jass.game.rule_schieber import RuleSchieber
 
 class MyAgent(Agent):
     """
-    Sampl implementation of a player to play Jass.
+    Sampl implemntation of a player to play Jass.
     """
     def __init__(self):
         # log actions
