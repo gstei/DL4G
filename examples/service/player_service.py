@@ -20,6 +20,7 @@ def create_app():
         export FLASK_ENV=development
         flask run --host=0.0.0.0 --port=8888
     """
+
     logging.basicConfig(level=logging.DEBUG)
 
     # create and configure the app
@@ -32,3 +33,7 @@ def create_app():
     app.add_player('random', AgentRandomSchieber())
 
     return app
+
+    if __name__ == '__main__':
+        app = create_app()
+        app.run()

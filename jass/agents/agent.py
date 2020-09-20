@@ -9,6 +9,8 @@ class Agent:
     """
     Agent to act as a player in a match of jass.
     """
+
+
     def action_trump(self, obs: GameObservation) -> int:
         """
         Determine trump action for the given observation

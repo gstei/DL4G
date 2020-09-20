@@ -13,7 +13,7 @@ from jass.game.const import color_masks, card_strings
 from jass.game.game_observation import GameObservation
 from jass.game.rule_schieber import RuleSchieber
 
-
+#Hallo 123
 class MyAgent(Agent):
     """
     Sampl implemntation of a player to play Jass.
@@ -51,7 +51,7 @@ def main():
 
     # setup the arena
     arena = Arena(nr_games_to_play=1000, save_filename='arena_games')
-    player = AgentRandomSchieber()
+    player = MyAgent()#AgentRandomSchieber()
     my_player = MyAgent()
 
     arena.set_players(my_player, player, my_player, player)
