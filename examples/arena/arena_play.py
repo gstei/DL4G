@@ -47,7 +47,7 @@ class MyAgent(Agent):
         card = self._rng.choice(np.flatnonzero(valid_cards))
         self._logger.debug('Played card: {}'.format(card_strings[card]))
         return card
-class MyAgent2(Agent):
+class MyAgentSW_01(Agent):
     """
     Sample implementation of a player to play Jass.
     """
@@ -117,14 +117,75 @@ class MyAgent2(Agent):
         self._logger.debug('Played card: {}'.format(card_strings[card]))
         return card
 
+#Let's create a Tree in which we can save our values
+class TreeNode:
+    def __init__(self, data):
+        self.data = data
+        self.children=[]
+        self.parent=None#Here we want to save the parent of this node
+
+    def add_child(self, child):
+        child.parent=self
+        self.children.append(child)
+
+    def print_tree(self):
+        print(self.data)
+        if len(self.children) > 0:
+            for child in self.children:
+                child.print_tree()
+def build_product_tree():
+    root=TreeNode("Electronics")
+    laptop=TreeNode("Laptop")
+    phone=TreeNode("phone")
+    root.add_child(laptop)
+    root.add_child(phone)
+    return root
+#Minimax with Limited Depth & Heuristic
+def minimax(node, depth, maximizingPlayer):
+    return 1
+class MyAgentSW_02(Agent):
+    """
+    Sample implementation of a player to play Jass.
+    """
+    def __init__(self):
+        # log actions
+        self._logger = logging.getLogger(__name__)
+        # Use rule object to determine valid actions
+        self._rule = RuleSchieber()
+        # init random number generator
+        self._rng = np.random.default_rng()
+
+    def action_trump(self, obs: GameObservation) -> int:
+        trump = 0
+        max_number_in_color = 0
+        #Schaut von welcher Farbe er am meisten Karten hat und wählt diese als trumpf
+        for c in range(4):
+            #number_in_color zählt wie viele Karten von einer Farbe vorhanden sind
+            #color_mask[c] enthält mske für eine gewisse Farbe
+            number_in_color = (obs.hand * color_masks[c]).sum()
+            if number_in_color > max_number_in_color:
+                max_number_in_color = number_in_color
+                trump = c
+        return trump
+
+    def action_play_card(self, obs: GameObservation) -> int:
+        # cards are one hot encoded
+        valid_cards = self._rule.get_valid_cards_from_obs(obs)
+        # convert to list and draw a value
+        card = self._rng.choice(np.flatnonzero(valid_cards))
+        self._logger.debug('Played card: {}'.format(card_strings[card]))
+        return card
+
 def main():
     # Set the global logging levl (Set to debug or info to see more messages)
     logging.basicConfig(level=logging.WARNING)
+    root = build_product_tree()
+    root.children
 
     # setup the arena
-    arena = Arena(nr_games_to_play=10000, save_filename='arena_games')
+    arena = Arena(nr_games_to_play=1000, save_filename='arena_games')
     player = MyAgent()#AgentRandomSchieber()
-    my_player = MyAgent2()
+    my_player = MyAgentSW_01()
 
     arena.set_players(my_player, player, my_player, player)
     print('Playing {} games'.format(arena.nr_games_to_play))
