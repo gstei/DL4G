@@ -13,17 +13,18 @@ from jass.game.const import color_masks, card_strings, card_values
 from jass.game.game_observation import GameObservation
 from jass.game.rule_schieber import RuleSchieber
 
-#from mcts.my_mcts_player import MyMCTSPlayer
+# from mcts.my_mcts_player import MyMCTSPlayer
 
-#from mcts.my_mcts_player_random_trump import MyIMCTSPlayerRandomTrump
-#from my_jass.player.my_player_deep_trump import MyPlayerDeepTrump
-#from my_jass.ml_player.ml_player import MyMLPlayer
-#from my_jass.imcts.my_imcts_deep_player import MyIMCTSDeepPlayer
-#from my_jass.player.my_player import MyPlayer
+# from mcts.my_mcts_player_random_trump import MyIMCTSPlayerRandomTrump
+# from my_jass.player.my_player_deep_trump import MyPlayerDeepTrump
+# from my_jass.ml_player.ml_player import MyMLPlayer
+# from my_jass.imcts.my_imcts_deep_player import MyIMCTSDeepPlayer
+# from my_jass.player.my_player import MyPlayer
 import joblib
 import pandas as pd
-#from sklearn.model_selection import GridSearchCV
 
+
+# from sklearn.model_selection import GridSearchCV
 
 
 def trump_c(i):
@@ -37,11 +38,11 @@ def trump_c(i):
     }
     return switcher.get(i)
 
-class MyAgent2(Agent):
+
+class MyAgentMl(Agent):
     """
     Sampl implemntation of a player to play Jass.
     """
-
 
     def __init__(self):
         # log actions
@@ -61,7 +62,7 @@ class MyAgent2(Agent):
         #         max_number_in_color = number_in_color
         #         trump = c
         cards_tr = self._rule.get_valid_cards_from_obs(obs)
-        cards_tr =np.append(cards_tr,1).astype(bool)
+        cards_tr = np.append(cards_tr, 1).astype(bool)
         X_test_2 = np.transpose((pd.DataFrame(cards_tr)).values)
         X_test_3 = (pd.DataFrame(np.array([[True] * 37]))).values
         return trump_c(np.array2string(self.model_clone.predict(X_test_2)))
@@ -75,7 +76,7 @@ class MyAgent2(Agent):
         return card
 
 
-class MyAgent(Agent):
+class MyAgentRandom(Agent):
     """
     SW1 - Excercise
     """
@@ -113,11 +114,11 @@ def main():
 
     # setup the arena
     arena = Arena(nr_games_to_play=1000, save_filename='arena_games')
-    random_player = MyAgent()  # Team 1 # AgentRandomSchieber()
-    my_player_1 = MyAgent2()    # Team 0 #billiher bot vom 1.Semester
-    #mcts_player = MyMCTSPlayer()
+    random_player = MyAgentRandom()  # Team 1 # AgentRandomSchieber()
+    my_player_ml = MyAgentMl()  # Team 0 #ML Trump
+    # mcts_player = MyMCTSPlayer()
 
-    arena.set_players(my_player_1, random_player, my_player_1, random_player)
+    arena.set_players(my_player_ml, random_player, my_player_ml, random_player)
     print('Playing {} games'.format(arena.nr_games_to_play))
     arena.play_all_games()
     print('Average Points Team 0: {:.2f})'.format(arena.points_team_0.mean()))
