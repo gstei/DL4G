@@ -34,7 +34,7 @@ class MYAgentMl(Agent):
         self._rule = RuleSchieber()
         # init random number generator
         self._rng = np.random.default_rng()
-        self.model_clone = joblib.load('my_model.pkl')
+        self.model_clone = joblib.load('mymodel.pkl')
 
     def action_trump(self, obs: GameObservation) -> int:
         """
