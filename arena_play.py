@@ -15,7 +15,7 @@ from jass.game.rule_schieber import RuleSchieber
 from jass.agents.agent_random_schieber import AgentRandomSchieber
 from MyAgent import MYAgentMl
 
-# from mcts.my_mcts_player import MyMCTSPlayer
+# from mcts.my_mcts_player import MyMCTSPlayera
 
 
 class MyAgentRandom(Agent):
