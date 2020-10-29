@@ -1,4 +1,4 @@
-#MyAgent.py# HSLU
+#MyAgent2.py# HSLU
 #
 # Created by Thomas Koller on 7/28/2020
 #
@@ -23,7 +23,7 @@ def trump_c(i):
     }
     return switcher.get(i)
 
-class MYAgentMl(Agent):
+class MYAgentMl2(Agent):
     """
     Randomly select actions for the match of jass (Schieber)
     """
