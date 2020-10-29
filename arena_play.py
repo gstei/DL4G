@@ -57,12 +57,13 @@ def main():
     arena = Arena(nr_games_to_play=1000, save_filename='arena_games')
     random_player = AgentRandomSchieber()
     my_player_ml = MYAgentMl()  #MyAgentRandom()
-
-    arena.set_players(my_player_ml, my_player_ml2, my_player_ml, my_player_ml2)
+    my_player_ml2 = MYAgentMl2()  # MyAgentRandom()
+    #
+    arena.set_players(my_player_ml, random_player, my_player_ml, random_player)
     print('Playing {} games'.format(arena.nr_games_to_play))
     arena.play_all_games()
-    print('Average Points Team random_player: {:.2f})'.format(arena.points_team_0.mean()))
-    print('Average Points Team MyPlayer: {:.2f})'.format(arena.points_team_1.mean()))
+    print('Average Points Team MyPlayer: {:.2f}'.format(arena.points_team_0.mean()))
+    print('Average Points Team random_player: {:.2f})'.format(arena.points_team_1.mean()))
 
 
 if __name__ == '__main__':
