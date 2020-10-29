@@ -14,8 +14,6 @@ from jass.game.rule_schieber import RuleSchieber
 
 from jass.agents.agent_random_schieber import AgentRandomSchieber
 from MyAgent import MYAgentMl
-from MyAgent2 import MYAgentMl2
-#from MyAgent import MYAgentMl
 
 # from mcts.my_mcts_player import MyMCTSPlayera
 
@@ -56,13 +54,13 @@ def main():
     # setup the arena
     arena = Arena(nr_games_to_play=1000, save_filename='arena_games')
     random_player = AgentRandomSchieber()
-    my_player_ml = MYAgentMl()  #MyAgentRandom()
+    my_player_ml = MYAgentMl()
 
-    arena.set_players(my_player_ml, my_player_ml2, my_player_ml, my_player_ml2)
+    arena.set_players(my_player_ml, random_player, my_player_ml, random_player)
     print('Playing {} games'.format(arena.nr_games_to_play))
     arena.play_all_games()
-    print('Average Points Team random_player: {:.2f})'.format(arena.points_team_0.mean()))
-    print('Average Points Team MyPlayer: {:.2f})'.format(arena.points_team_1.mean()))
+    print('Average Points Team MyPlayer: {:.2f})'.format(arena.points_team_0.mean()))
+    print('Average Points random_player: {:.2f})'.format(arena.points_team_1.mean()))
 
 
 if __name__ == '__main__':
