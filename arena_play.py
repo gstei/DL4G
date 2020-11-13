@@ -59,7 +59,7 @@ def main():
     my_player_ml = MYAgentMl()  #MyAgentRandom()
     my_player_ml2 = MYAgentMl2()  # MyAgentRandom()
     #
-    arena.set_players(my_player_ml, random_player, my_player_ml, random_player)
+    arena.set_players(my_player_ml, my_player_ml2, my_player_ml, random_player)
     print('Playing {} games'.format(arena.nr_games_to_play))
     arena.play_all_games()
     print('Average Points Team MyPlayer: {:.2f}'.format(arena.points_team_0.mean()))

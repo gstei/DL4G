@@ -49,6 +49,7 @@ class DeepQNetwork(nn.Module):
         # relu is a very popular activation function that sets all negative values
         # to zero, the activation function defines when a neuron is firing, and
         # when an neuron is not firing
+        state=state.type(T.cuda.FloatTensor)
         fc1_out = F.relu(self.fc1(state))  # output of our first hidden layer
         fc2_out = F.relu(self.fc2(fc1_out))  # output of our second hidden layer
         fc3_out = F.relu(self.fc3(fc2_out))  # output of our third hidden layer

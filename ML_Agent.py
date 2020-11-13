@@ -1,6 +1,10 @@
 import numpy as np
-from NeurealNetwork import DeepQNetwork
-class Agent():
+import torch as T
+import torch.nn as nn
+import torch.nn.functional as F
+import torch.optim as optim
+from NeuralNetwork_02 import DeepQNetwork
+class ML_Agent01():
   """
   -gamma gewichted den reward
   -epsilon gives the ratio between exploring and taking a well nown action
@@ -30,10 +34,10 @@ class Agent():
     # We neeed an evaluation network as can be seen in the image above
     # The evaluation model gets trained every step
     #normaly fc1=256 and fc2=256
-    self.Q_eval = NeurealNetwork.DeepQNetwork(lr, n_actions=n_actions, input_dims=input_dims,
+    self.Q_eval = DeepQNetwork(lr, n_actions=n_actions, input_dims=input_dims,
                                 fc1_dims=nn_size, fc2_dims=nn_size, fc3_dims=nn_size)
     # The Q_next model is what we predict
-    self.Q_next = NeurealNetwork.DeepQNetwork(lr, n_actions=n_actions, input_dims=input_dims,
+    self.Q_next = DeepQNetwork(lr, n_actions=n_actions, input_dims=input_dims,
                                 fc1_dims=nn_size, fc2_dims=nn_size, fc3_dims=nn_size)
     #Is like a list (named array)
     self.state_memory = np.zeros((self.mem_size, *input_dims), dtype=np.float32)

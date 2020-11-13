@@ -4,6 +4,7 @@
 #
 import logging
 import numpy as np
+from jass.game.const import card_strings, card_values
 from jass.agents.agent import Agent
 from jass.game.const import PUSH, MAX_TRUMP, card_strings
 from jass.game.game_observation import GameObservation
@@ -38,23 +39,14 @@ class MYAgentMl(Agent):
         self.model_clone = joblib.load('my_model.pkl')
 
     def action_trump(self, obs: GameObservation) -> int:
-        """
-        Select trump randomly. Pushing is selected with probability 0.5 if possible.
-        Args:
-            obs: the current match
-        Returns:
-            trump action
-        """
-        self._logger.info('Trump request')
-        if obs.forehand == -1:
-            # if forehand is not yet set, we are the forehand player and can select trump or push
-            cards_tr = self._rule.get_valid_cards_from_obs(obs)
-            cards_tr = np.append(cards_tr, 1).astype(bool)
-            X_test_2 = np.transpose((pd.DataFrame(cards_tr)).values)
-            X_test_3 = (pd.DataFrame(np.array([[True] * 37]))).values
-        result = trump_c(np.array2string(self.model_clone.predict(X_test_2)))
-        self._logger.info('Result: {}'.format(result))
-        return result
+        trump = 0
+        max_number_in_color = 0
+        for c in range(4):
+            number_in_color = (obs.hand * card_values[c]).sum()
+            if number_in_color > max_number_in_color:
+                max_number_in_color = number_in_color
+                trump = c
+        return trump
 
     def action_play_card(self, obs: GameObservation) -> int:
         """
