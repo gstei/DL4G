@@ -47,6 +47,7 @@ class MYAgentMl(Agent):
         """
         self._logger.info('Trump request')
         if obs.forehand == -1:
+
             # if forehand is not yet set, we are the forehand player and can select trump or push
             cards_tr = self._rule.get_valid_cards_from_obs(obs)
             cards_tr = np.append(cards_tr, 1).astype(bool)
@@ -64,6 +65,9 @@ class MYAgentMl(Agent):
         Returns:
             card to play
         """
+        model = np.zeros(41)
+        model[:36]=obs.hand
+        model[37:]=obs.current_trick
         self._logger.info('Card request')
         # cards are one hot encoded
         valid_cards = self._rule.get_valid_cards_from_obs(obs)
