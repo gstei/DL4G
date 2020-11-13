@@ -65,6 +65,7 @@ class MYAgentMl(Agent):
             card to play
         """
         self._logger.info('Card request')
+        input_array=np.append(np.array(obs.hand), [np.array(obs.current_trick)/36, np.array(obs.trump)/6])
         # cards are one hot encoded
         valid_cards = self._rule.get_valid_cards_from_obs(obs)
         # convert to list and draw a value
